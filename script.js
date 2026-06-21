@@ -80,11 +80,63 @@ const yesBtn = document.getElementById('yesBtn');
 
 yesBtn.addEventListener('click', () => {
     showHeartLoader();
-    
+
     setTimeout(() => {
         showScreen('calendarScreen');
         focusInput('dateInput');
     }, 1500);
+});
+
+// The "No" button always dodges away so it can never actually be pressed
+const noBtn = document.getElementById('noBtn');
+const noHint = document.getElementById('noHint');
+let noHintTimeout;
+
+function showNoHint() {
+    noHint.classList.add('show');
+    yesBtn.classList.remove('hint-pulse');
+    requestAnimationFrame(() => yesBtn.classList.add('hint-pulse'));
+
+    clearTimeout(noHintTimeout);
+    noHintTimeout = setTimeout(() => {
+        noHint.classList.remove('show');
+        yesBtn.classList.remove('hint-pulse');
+    }, 2000);
+}
+
+function dodgeNoButton() {
+    const rect = noBtn.getBoundingClientRect();
+    const padding = 16;
+
+    if (noBtn.style.position !== 'fixed') {
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = `${rect.left}px`;
+        noBtn.style.top = `${rect.top}px`;
+        noBtn.style.margin = '0';
+        noBtn.style.zIndex = '200';
+    }
+
+    const maxX = window.innerWidth - rect.width - padding;
+    const maxY = window.innerHeight - rect.height - padding;
+    const newX = padding + Math.random() * Math.max(0, maxX - padding);
+    const newY = padding + Math.random() * Math.max(0, maxY - padding);
+
+    requestAnimationFrame(() => {
+        noBtn.style.left = `${newX}px`;
+        noBtn.style.top = `${newY}px`;
+    });
+
+    showNoHint();
+}
+
+noBtn.addEventListener('mouseenter', dodgeNoButton);
+noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    dodgeNoButton();
+}, { passive: false });
+noBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    dodgeNoButton();
 });
 
 // ============================================
