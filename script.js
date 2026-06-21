@@ -159,27 +159,136 @@ yesBtn.addEventListener('click', () => {
 // CALENDAR SCREEN
 // ============================================
 
-const dateInput = document.getElementById('dateInput');
+let currentCalendarDate = new Date();
+
+const prevMonthBtn = document.getElementById('prevMonth');
+const nextMonthBtn = document.getElementById('nextMonth');
+const monthYearDisplay = document.getElementById('monthYear');
+const calendarDaysContainer = document.getElementById('calendarDays');
+const selectedDateDisplay = document.getElementById('selectedDateDisplay');
 const dateNextBtn = document.getElementById('dateNextBtn');
 
-dateInput.addEventListener('change', (e) => {
-    proposalData.date = e.target.value;
+function renderCalendar() {
+    const year = currentCalendarDate.getFullYear();
+    const month = currentCalendarDate.getMonth();
+    
+    // Update header
+    const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    monthYearDisplay.textContent = `${monthNames[month]} ${year}`;
+    
+    // Clear previous days
+    calendarDaysContainer.innerHTML = '';
+    
+    // Get first day of month and number of days
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+    
+    // Today's date
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Add previous month's days (grayed out)
+    for (let i = firstDay - 1; i >= 0; i--) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'calendar-day other-month';
+        dayDiv.textContent = daysInPrevMonth - i;
+        calendarDaysContainer.appendChild(dayDiv);
+    }
+    
+    // Add current month's days
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'calendar-day';
+        dayDiv.textContent = day;
+        
+        const currentDate = new Date(year, month, day);
+        currentDate.setHours(0, 0, 0, 0);
+        
+        // Check if date is in the past
+        if (currentDate < today) {
+            dayDiv.classList.add('disabled');
+        } else {
+            // Check if it's today
+            if (currentDate.getTime() === today.getTime()) {
+                dayDiv.classList.add('today');
+            }
+            
+            // Check if it's selected
+            if (proposalData.date) {
+                const selectedDateObj = new Date(proposalData.date);
+                selectedDateObj.setHours(0, 0, 0, 0);
+                if (currentDate.getTime() === selectedDateObj.getTime()) {
+                    dayDiv.classList.add('selected');
+                }
+            }
+            
+            // Add click handler
+            dayDiv.addEventListener('click', () => selectDate(year, month, day));
+        }
+        
+        calendarDaysContainer.appendChild(dayDiv);
+    }
+    
+    // Add next month's days (grayed out)
+    const totalCells = calendarDaysContainer.children.length;
+    const remainingCells = 42 - totalCells; // 6 rows × 7 days
+    for (let day = 1; day <= remainingCells; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'calendar-day other-month';
+        dayDiv.textContent = day;
+        calendarDaysContainer.appendChild(dayDiv);
+    }
+}
+
+function selectDate(year, month, day) {
+    const selectedDate = new Date(year, month, day);
+    
+    // Format as YYYY-MM-DD for storage
+    const formattedDate = selectedDate.toISOString().split('T')[0];
+    proposalData.date = formattedDate;
     saveDataToStorage();
+    
+    // Update display
+    updateSelectedDateDisplay();
+    
+    // Re-render calendar to show selection
+    renderCalendar();
+    
+    // Enable next button
+    dateNextBtn.disabled = false;
+}
+
+function updateSelectedDateDisplay() {
+    if (proposalData.date) {
+        const dateObj = new Date(proposalData.date + 'T00:00:00');
+        const options = { weekday: 'long', month: 'long', day: 'numeric' };
+        const formattedDate = dateObj.toLocaleDateString('en-US', options);
+        selectedDateDisplay.innerHTML = `<p>💕 ${formattedDate} 💕</p>`;
+    } else {
+        selectedDateDisplay.innerHTML = '<p>📅 Pick a date for our special day ✨</p>';
+    }
+}
+
+prevMonthBtn.addEventListener('click', () => {
+    currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+    renderCalendar();
+});
+
+nextMonthBtn.addEventListener('click', () => {
+    currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+    renderCalendar();
 });
 
 dateNextBtn.addEventListener('click', () => {
-    if (dateInput.value) {
+    if (proposalData.date) {
         showScreen('locationScreen');
         focusInput('locationInput');
     } else {
         showAlert('Please select a date 📅');
-    }
-});
-
-// Keyboard Enter support
-dateInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && dateInput.value) {
-        dateNextBtn.click();
     }
 });
 
@@ -305,9 +414,14 @@ resetBtn.addEventListener('click', () => {
     saveDataToStorage();
     
     // Reset form inputs
-    dateInput.value = '';
     locationInput.value = '';
     timeButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // Reset calendar
+    currentCalendarDate = new Date();
+    renderCalendar();
+    updateSelectedDateDisplay();
+    dateNextBtn.disabled = true;
     
     // Return to landing screen
     showScreen('landingScreen');
@@ -358,10 +472,18 @@ function showAlert(message) {
 document.addEventListener('DOMContentLoaded', () => {
     loadDataFromStorage();
     
-    // If data exists in storage, populate form
+    // Initialize calendar
+    renderCalendar();
+    updateSelectedDateDisplay();
+    
+    // If calendar screen is shown, set button state
     if (proposalData.date) {
-        dateInput.value = proposalData.date;
+        dateNextBtn.disabled = false;
+    } else {
+        dateNextBtn.disabled = true;
     }
+    
+    // If data exists in storage, populate form
     if (proposalData.location) {
         locationInput.value = proposalData.location;
     }
