@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Go On A Date With Me? 💕</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==" type="audio/wav">
+    </audio>
+
+    <!-- Music Toggle Button -->
+    <button class="music-toggle" id="musicToggle" aria-label="Toggle music">🔇</button>
+
+    <!-- Landing Screen -->
+    <section class="screen landing-screen active" id="landingScreen">
+        <div class="floating-hearts">
+            <div class="heart heart-1">❤️</div>
+            <div class="heart heart-2">❤️</div>
+            <div class="heart heart-3">❤️</div>
+            <div class="heart heart-4">❤️</div>
+            <div class="heart heart-5">❤️</div>
+        </div>
+        
+        <div class="screen-content">
+            <h1 class="landing-text">Hey… I have something special for you <span class="emoji-pulse">❤️</span></h1>
+            <button class="btn btn-primary" id="startBtn">Click me</button>
+        </div>
+    </section>
+
+    <!-- Question Screen -->
+    <section class="screen question-screen" id="questionScreen">
+        <div class="floating-hearts-small">
+            <div class="heart heart-1">❤️</div>
+            <div class="heart heart-2">❤️</div>
+            <div class="heart heart-3">❤️</div>
+        </div>
+        
+        <div class="screen-content">
+            <h2 class="question-text">Will you go on a date with me? <span class="emoji-bounce">😍</span></h2>
+            <button class="btn btn-primary" id="yesBtn">Yes! 💕</button>
+        </div>
+    </section>
+
+    <!-- Heart Loading Overlay -->
+    <div class="heart-loader" id="heartLoader">
+        <div class="beating-heart">❤️</div>
+    </div>
+
+    <!-- Calendar Step -->
+    <section class="screen calendar-screen" id="calendarScreen">
+        <div class="screen-content form-content">
+            <h2>When should we meet? 📅</h2>
+            <input type="date" id="dateInput" class="form-input" required>
+            <button class="btn btn-primary" id="dateNextBtn">Next →</button>
+        </div>
+    </section>
+
+    <!-- Location Step -->
+    <section class="screen location-screen" id="locationScreen">
+        <div class="screen-content form-content">
+            <h2>Where should we go? 📍</h2>
+            <input 
+                type="text" 
+                id="locationInput" 
+                class="form-input" 
+                placeholder="A café, restaurant, park, etc..."
+                required
+            >
+            <button class="btn btn-primary" id="locationNextBtn">Next →</button>
+        </div>
+    </section>
+
+    <!-- Time Step -->
+    <section class="screen time-screen" id="timeScreen">
+        <div class="screen-content form-content">
+            <h2>What time? ⏰</h2>
+            <div class="time-buttons">
+                <button class="btn btn-secondary time-btn" data-time="morning">
+                    Morning 🌅
+                </button>
+                <button class="btn btn-secondary time-btn" data-time="evening">
+                    Evening 🌇
+                </button>
+                <button class="btn btn-secondary time-btn" data-time="night">
+                    Night 🌙
+                </button>
+            </div>
+            <button class="btn btn-primary" id="timeNextBtn" style="margin-top: 2rem;">Next →</button>
+        </div>
+    </section>
+
+    <!-- Final Screen -->
+    <section class="screen final-screen" id="finalScreen">
+        <div class="floating-hearts">
+            <div class="heart heart-1">❤️</div>
+            <div class="heart heart-2">❤️</div>
+            <div class="heart heart-3">❤️</div>
+            <div class="heart heart-4">❤️</div>
+            <div class="heart heart-5">❤️</div>
+        </div>
+        
+        <div class="screen-content">
+            <h2 class="final-title">It's a date! <span class="emoji-pulse">❤️</span> I can't wait 😊</h2>
+            <div class="final-details">
+                <p class="detail-text" id="dateDisplay"></p>
+                <p class="detail-text" id="timeDisplay"></p>
+                <p class="detail-text" id="locationDisplay"></p>
+            </div>
+            <p class="final-message">See you soon! 💕</p>
+            <button class="btn btn-secondary" id="resetBtn">Start Over</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
