@@ -54,8 +54,40 @@
     <section class="screen calendar-screen" id="calendarScreen">
         <div class="screen-content form-content">
             <h2>When should we meet? 📅</h2>
-            <input type="date" id="dateInput" class="form-input" required>
-            <button class="btn btn-primary" id="dateNextBtn">Next →</button>
+            
+            <div class="calendar-container">
+                <!-- Calendar Header -->
+                <div class="calendar-header">
+                    <button class="calendar-nav-btn" id="prevMonth" aria-label="Previous month">
+                        <span class="nav-arrow">❮</span>
+                    </button>
+                    <h3 class="calendar-month-year" id="monthYear">January 2024</h3>
+                    <button class="calendar-nav-btn" id="nextMonth" aria-label="Next month">
+                        <span class="nav-arrow">❯</span>
+                    </button>
+                </div>
+                
+                <!-- Weekdays -->
+                <div class="calendar-weekdays">
+                    <div class="weekday">Sun</div>
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                </div>
+                
+                <!-- Calendar Days -->
+                <div class="calendar-days" id="calendarDays"></div>
+            </div>
+            
+            <!-- Selected Date Display -->
+            <div class="selected-date-display" id="selectedDateDisplay">
+                <p>📅 Pick a date for our special day ✨</p>
+            </div>
+            
+            <button class="btn btn-primary" id="dateNextBtn" disabled>Next →</button>
         </div>
     </section>
 
