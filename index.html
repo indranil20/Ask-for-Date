@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Go On A Date With Me?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="bgMusic" autoplay loop>
+        <source src="love-tone.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Brand Mark -->
+    <div class="brand-mark"><i data-lucide="heart" class="brand-logo"></i></div>
+
+    
+
+    <!-- Landing Screen -->
+    <section class="screen landing-screen active" id="landingScreen">
+        <div class="floating-hearts">
+            <i data-lucide="heart" class="heart heart-1"></i>
+            <i data-lucide="heart" class="heart heart-2"></i>
+            <i data-lucide="heart" class="heart heart-3"></i>
+            <i data-lucide="heart" class="heart heart-4"></i>
+            <i data-lucide="heart" class="heart heart-5"></i>
+        </div>
+
+        <div class="screen-content">
+            <h1 class="landing-text">Hey… I have something <span class="accent-text">special</span> for you </h1>
+            <button class="btn btn-primary" id="startBtn">Click me</button>
+        </div>
+    </section>
+
+    <!-- Question Screen -->
+    <section class="screen question-screen" id="questionScreen">
+        <div class="floating-hearts-small">
+            <i data-lucide="heart" class="heart heart-1"></i>
+            <i data-lucide="heart" class="heart heart-2"></i>
+            <i data-lucide="heart" class="heart heart-3"></i>
+        </div>
+
+        <div class="screen-content">
+            <h2 class="question-text">Will you go on a <span class="accent-text">date</span> with me? </h2>
+            <button class="btn btn-primary" id="yesBtn">Yes! </button>
+        </div>
+    </section>
+
+    <!-- Heart Loading Overlay -->
+    <div class="heart-loader" id="heartLoader">
+        <i data-lucide="heart" class="beating-heart"></i>
+    </div>
+
+    <!-- Calendar Step -->
+    <section class="screen calendar-screen" id="calendarScreen">
+        <div class="screen-content form-content">
+            <h2></h2>
+
+            <div class="month-calendar-wrapper">
+                <div class="month-nav">
+                    <button class="month-nav-btn" id="prevMonthBtn" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                    <div class="month-header" id="monthHeader">June 2026</div>
+                    <button class="month-nav-btn" id="nextMonthBtn" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                </div>
+
+                <div class="month-weekdays" id="monthWeekdays"></div>
+                <div class="month-days" id="monthDays"></div>
+            </div>
+
+            <!-- Selected Date Display -->
+            <div class="selected-date-display">
+                <p> Pick a date for our special day </p>
+            </div>
+
+            <button class="btn btn-primary" id="dateNextBtn" disabled>Next <i data-lucide="arrow-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Location Step -->
+    <section class="screen location-screen" id="locationScreen">
+        <div class="screen-content form-content">
+            <h2>Where should we go? </h2>
+            <input
+                type="text"
+                id="locationInput"
+                class="form-input"
+                placeholder="A café, restaurant, park, etc..."
+                required
+            >
+            <button class="btn btn-primary" id="locationNextBtn">Next <i data-lucide="arrow-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Time Step -->
+    <section class="screen time-screen" id="timeScreen">
+        <div class="screen-content form-content">
+            <h2>What time?</h2>
+            <div class="time-buttons">
+                <button class="btn btn-secondary time-btn" data-time="morning">
+                    Morning <i data-lucide="sunrise"></i>
+                </button>
+                <button class="btn btn-secondary time-btn" data-time="evening">
+                    Evening <i data-lucide="sunset"></i>
+                </button>
+                <button class="btn btn-secondary time-btn" data-time="night">
+                    Night <i data-lucide="moon"></i>
+                </button>
+            </div>
+            <button class="btn btn-primary" id="timeNextBtn" style="margin-top: 2rem;">Next <i data-lucide="arrow-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Final Screen -->
+    <section class="screen final-screen" id="finalScreen">
+        <div class="floating-hearts">
+            <i data-lucide="heart" class="heart heart-1"></i>
+            <i data-lucide="heart" class="heart heart-2"></i>
+            <i data-lucide="heart" class="heart heart-3"></i>
+            <i data-lucide="heart" class="heart heart-4"></i>
+            <i data-lucide="heart" class="heart heart-5"></i>
+        </div>
+
+        <div class="screen-content">
+            <h2 class="final-title">It's a <span class="accent-text">date</span>!  I can't wait </h2>
+            <div class="final-details">
+                <p class="detail-text" id="dateDisplay"></p>
+                <p class="detail-text" id="timeDisplay"></p>
+                <p class="detail-text" id="locationDisplay"></p>
+            </div>
+            <p class="final-message">See you soon!</p>
+            <button class="btn btn-secondary" id="resetBtn">Start Over</button>
+        </div>
+    </section>
+
+    <!-- Responses View Screen (Hidden) -->
+    <section class="screen responses-screen" id="responsesScreen">
+        <div class="screen-content responses-content">
+            <div class="responses-header">
+                <h2><i data-lucide="mail"></i> Responses</h2>
+                <button class="btn-close" id="closeResponses"><i data-lucide="x"></i></button>
+            </div>
+
+            <div class="responses-list" id="responsesList">
+                <p class="no-responses"><i data-lucide="heart-crack"></i> No responses yet</p>
+            </div>
+
+            <button class="btn btn-secondary" id="clearResponsesBtn" style="margin-top: 2rem;">Clear All Responses</button>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

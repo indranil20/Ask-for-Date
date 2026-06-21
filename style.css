@@ -1,0 +1,1344 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-pink: #e63950;
+    --light-pink: #f3b7bf;
+    --lighter-pink: #fbe9eb;
+    --white: #ffffff;
+    --dark-gray: #4a4a4a;
+    --transition-speed: 0.4s;
+    --font-size-base: 16px;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    background: #ffffff;
+    min-height: 100vh;
+    color: var(--dark-gray);
+}
+
+/* ============================================
+   SCREENS & TRANSITIONS
+   ============================================ */
+
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed) ease,
+                visibility var(--transition-speed) ease;
+    z-index: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.screen-content {
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* ============================================
+   LANDING SCREEN
+   ============================================ */
+
+.landing-screen {
+    background: #ffffff;
+}
+
+.landing-text {
+    font-size: clamp(1.8rem, 6vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 2.5rem;
+    line-height: 1.25;
+    text-transform: uppercase;
+    animation: slideInDown 0.8s ease-out;
+    color: var(--dark-gray);
+}
+
+.landing-text .accent-text {
+    color: var(--primary-pink);
+}
+
+/* ============================================
+   QUESTION SCREEN
+   ============================================ */
+
+.question-screen {
+    background: #ffffff;
+}
+
+.question-text {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin-bottom: 3rem;
+    line-height: 1.3;
+    animation: slideInUp 0.8s ease-out;
+}
+
+.question-text .accent-text,
+.final-title .accent-text {
+    color: var(--primary-pink);
+}
+
+/* ============================================
+   DECORATIVE CORNER BLOBS & BRAND MARK
+   ============================================ */
+
+.screen::before,
+.screen::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-pink) 0%, #a8132a 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.screen::before {
+    width: 220px;
+    height: 220px;
+    top: -110px;
+    left: -110px;
+}
+
+.screen::after {
+    width: 150px;
+    height: 150px;
+    bottom: -75px;
+    right: -75px;
+}
+
+.brand-mark {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 101;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-pink) 0%, #a8132a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(230, 57, 80, 0.35);
+}
+
+.brand-logo {
+    color: var(--white);
+    font-size: 1.2rem;
+}
+
+/* ============================================
+   FLOATING HEARTS ANIMATION
+   ============================================ */
+
+.floating-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-hearts-small {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    animation: float 6s infinite ease-in-out;
+}
+
+.heart-1 {
+    left: 10%;
+    bottom: -5%;
+    animation-delay: 0s;
+    font-size: 1.2rem;
+}
+
+.heart-2 {
+    left: 20%;
+    bottom: -10%;
+    animation-delay: 1s;
+    font-size: 1.5rem;
+}
+
+.heart-3 {
+    left: 50%;
+    bottom: -8%;
+    animation-delay: 2s;
+    font-size: 1.3rem;
+}
+
+.heart-4 {
+    left: 75%;
+    bottom: -12%;
+    animation-delay: 1.5s;
+    font-size: 1.4rem;
+}
+
+.heart-5 {
+    left: 85%;
+    bottom: -6%;
+    animation-delay: 2.5s;
+    font-size: 1.2rem;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-150vh) translateX(100px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   EMOJI ANIMATIONS
+   ============================================ */
+
+.emoji-pulse {
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.emoji-bounce {
+    display: inline-block;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* ============================================
+   HEART LOADER
+   ============================================ */
+
+.heart-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 192, 217, 0.95);
+    z-index: 999;
+    backdrop-filter: blur(10px);
+}
+
+.heart-loader.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.beating-heart {
+    font-size: 5rem;
+    animation: heartbeat 0.6s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.15);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   FORM SCREENS
+   ============================================ */
+
+.form-content {
+    padding: 2rem 1.5rem;
+}
+
+.form-content h2 {
+    font-size: clamp(1.3rem, 4vw, 2rem);
+    margin-bottom: 2.5rem;
+    font-weight: 500;
+    animation: slideInDown 0.6s ease-out;
+    background: linear-gradient(135deg, var(--primary-pink) 0%, #c81f37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    font-size: 1rem;
+    border: 2px solid var(--light-pink);
+    border-radius: 18px;
+    background: var(--white);
+    color: var(--dark-gray);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    font-family: inherit;
+    box-shadow: 0 6px 20px rgba(230, 57, 80, 0.12);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-pink);
+    box-shadow: 0 8px 30px rgba(230, 57, 80, 0.25);
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #fff 0%, var(--lighter-pink) 100%);
+}
+
+.form-input::placeholder {
+    color: #d0a0b8;
+    font-style: italic;
+}
+
+/* Calendar Input Styling */
+.form-input[type="date"] {
+    cursor: pointer;
+}
+
+.form-input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.7) sepia(1) saturate(5) hue-rotate(340deg);
+}
+
+/* ============================================
+   MONTH CALENDAR STYLING (current month only)
+   ============================================ */
+
+.month-calendar-wrapper {
+    background: var(--white);
+    border-radius: 25px;
+    padding: 1.8rem 1.5rem;
+    box-shadow: 0 15px 50px rgba(230, 57, 80, 0.2);
+    margin-bottom: 2rem;
+    animation: slideInUp 0.6s ease-out;
+}
+
+.month-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.month-nav-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid var(--light-pink);
+    background: linear-gradient(135deg, var(--lighter-pink) 0%, #fff 100%);
+    color: var(--primary-pink);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+    touch-action: manipulation;
+}
+
+.month-nav-btn:hover:not(:disabled) {
+    background: var(--primary-pink);
+    color: var(--white);
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(230, 57, 80, 0.3);
+}
+
+.month-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.month-header {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-pink);
+    letter-spacing: 1px;
+}
+
+.month-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+}
+
+.month-weekday {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #b899a8;
+    padding: 0.3rem 0;
+    text-transform: uppercase;
+}
+
+.month-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.date-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    background: var(--lighter-pink);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    color: var(--dark-gray);
+}
+
+.date-cell:hover:not(.disabled):not(.other-month) {
+    background: var(--light-pink);
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(230, 57, 80, 0.25);
+}
+
+.date-cell.other-month {
+    color: transparent;
+    cursor: default;
+    background: transparent;
+    border: none;
+    pointer-events: none;
+}
+
+.date-cell.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: #f5f5f5;
+}
+
+.date-cell.selected {
+    background: linear-gradient(135deg, var(--primary-pink) 0%, #c81f37 100%);
+    color: var(--white);
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(230, 57, 80, 0.45);
+    border: 1px solid var(--primary-pink);
+    animation: popIn 0.4s ease;
+}
+
+.date-cell.today:not(.selected) {
+    border: 2px solid var(--primary-pink);
+    font-weight: 700;
+    background: var(--white);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.7);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) {
+    .month-calendar-wrapper {
+        padding: 2.2rem 2.2rem;
+        max-width: 480px;
+        margin: 0 auto 2rem;
+    }
+
+    .month-header {
+        font-size: 1.8rem;
+    }
+
+    .date-cell {
+        font-size: 1.05rem;
+    }
+}
+
+/* Desktop adjustments */
+@media (min-width: 1024px) {
+    .month-calendar-wrapper {
+        max-width: 500px;
+        padding: 2.5rem 2.5rem;
+    }
+
+    .date-cell {
+        font-size: 1.1rem;
+    }
+}
+
+.time-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+    animation: slideInUp 0.6s ease-out;
+}
+
+.time-btn {
+    padding: 1.3rem 2rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border-radius: 18px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.time-btn i {
+    flex-shrink: 0;
+}
+
+.time-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+    z-index: 0;
+}
+
+.time-btn:hover::before {
+    left: 100%;
+}
+
+.time-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.time-btn.active {
+    background: linear-gradient(135deg, var(--primary-pink) 0%, #c81f37 100%);
+    color: var(--white);
+    transform: scale(1.08);
+    box-shadow: 0 10px 35px rgba(230, 57, 80, 0.4);
+}
+
+.selected-date-display{
+    padding-bottom: 25px;
+    font-weight: 500;
+}
+
+
+
+@keyframes sparkle {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn {
+    padding: 1rem 2.5rem;
+    font-size: clamp(0.95rem, 3vw, 1.1rem);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    box-shadow: 0 6px 20px rgba(230, 57, 80, 0.3);
+    min-height: 50px;
+    touch-action: manipulation;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    pointer-events: none;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-pink) 0%, #c81f37 100%);
+    color: var(--white);
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #c81f37 0%, #a8132a 100%);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(230, 57, 80, 0.45);
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--primary-pink);
+    border: 2px solid var(--light-pink);
+    width: 100%;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--lighter-pink) 0%, var(--light-pink) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(230, 57, 80, 0.25);
+}
+
+/* ============================================
+   FINAL SCREEN
+   ============================================ */
+
+.final-screen {
+    background: #ffffff;
+}
+
+.final-title {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    animation: slideInDown 0.8s ease-out;
+    background: linear-gradient(135deg, var(--primary-pink) 0%, #c81f37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.final-details {
+    background: linear-gradient(135deg, var(--white) 0%, #ffffff 100%);
+    padding: 2rem 1.5rem;
+    border-radius: 25px;
+    margin: 2rem 0;
+    box-shadow: 0 12px 40px rgba(230, 57, 80, 0.18);
+    animation: slideInUp 0.8s ease-out;
+    border: 2px solid var(--lighter-pink);
+}
+
+.detail-text {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin: 1.2rem 0;
+    color: var(--primary-pink);
+    font-weight: 600;
+    line-height: 1.8;
+    letter-spacing: 0.3px;
+}
+
+.final-message {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    margin: 2rem 0 2.5rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--dark-gray);
+}
+
+/* ============================================
+   MUSIC TOGGLE BUTTON
+   ============================================ */
+
+.music-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 76px;
+    height: 40px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--light-pink) 0%, var(--primary-pink) 100%);
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.08), 0 6px 20px rgba(230, 57, 80, 0.3);
+    z-index: 100;
+    transition: background 0.35s ease, box-shadow 0.3s ease;
+    touch-action: manipulation;
+}
+
+.music-toggle.active {
+    background: linear-gradient(135deg, var(--primary-pink) 0%, #a8132a 100%);
+}
+
+.music-toggle:hover {
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.08), 0 10px 30px rgba(230, 57, 80, 0.4);
+}
+
+.music-toggle:active {
+    transform: scale(0.97);
+}
+
+.music-toggle::after {
+    content: '🎵';
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.toggle-thumb {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 1;
+}
+
+.music-toggle.active .toggle-thumb {
+    transform: translateX(36px);
+}
+
+/* ============================================
+   RESPONSES SCREEN
+   ============================================ */
+
+.responses-screen {
+    background: #ffffff;
+    z-index: 50;
+    overflow-y: auto;
+    padding: 2rem 1rem;
+}
+
+.responses-content {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.responses-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    gap: 1rem;
+}
+
+.responses-header h2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    background: linear-gradient(135deg, var(--primary-pink) 0%, #c81f37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+}
+
+.btn-close {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--light-pink);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-pink);
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+    flex-shrink: 0;
+}
+
+.btn-close:hover {
+    background: var(--lighter-pink);
+    transform: rotate(90deg);
+}
+
+.btn-close:active {
+    transform: rotate(90deg) scale(0.9);
+}
+
+.responses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.no-responses {
+    text-align: center;
+    color: #999;
+    font-size: 1.1rem;
+    padding: 2rem;
+}
+
+.response-item {
+    background: linear-gradient(135deg, var(--white) 0%, #ffffff 100%);
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(230, 57, 80, 0.15);
+    border: 2px solid var(--lighter-pink);
+    animation: slideInUp 0.5s ease-out;
+    position: relative;
+}
+
+.response-item.new {
+    border: 2px solid var(--primary-pink);
+    box-shadow: 0 10px 30px rgba(230, 57, 80, 0.25);
+}
+
+.response-number {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-pink) 0%, #c81f37 100%);
+    color: var(--white);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.response-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.response-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.response-detail-icon {
+    font-size: 1.5rem;
+    min-width: 30px;
+    text-align: center;
+    margin-top: 0.2rem;
+}
+
+.response-detail-content {
+    flex: 1;
+}
+
+.response-detail-label {
+    font-size: 0.85rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.3rem;
+}
+
+.response-detail-value {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    font-weight: 500;
+}
+
+.response-timestamp {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--lighter-pink);
+    font-size: 0.85rem;
+    color: #999;
+    text-align: right;
+}
+
+.response-delete-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(230, 57, 80, 0.1);
+    border: none;
+    color: var(--primary-pink);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+}
+
+.response-delete-btn:hover {
+    background: var(--primary-pink);
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+.response-delete-btn:active {
+    transform: scale(0.9);
+}
+
+@media (min-width: 768px) {
+    .responses-screen {
+        padding: 3rem 2rem;
+    }
+
+    .responses-content {
+        max-width: 700px;
+    }
+
+    .response-item {
+        padding: 2rem;
+    }
+
+    .response-detail {
+        gap: 1.5rem;
+    }
+
+    .response-detail-value {
+        font-size: 1.2rem;
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   CALENDAR SCREEN
+   ============================================ */
+
+.calendar-screen {
+    background: #ffffff;
+}
+
+/* ============================================
+   LOCATION SCREEN
+   ============================================ */
+
+.location-screen {
+    background: #ffffff;
+}
+
+/* ============================================
+   TIME SCREEN
+   ============================================ */
+
+.time-screen {
+    background: #ffffff;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablets (768px and up) */
+@media (min-width: 768px) {
+    :root {
+        --font-size-base: 18px;
+    }
+
+    .screen {
+        padding: 3rem 2rem;
+    }
+
+    .landing-text {
+        font-size: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .question-text {
+        font-size: 2.8rem;
+        margin-bottom: 4rem;
+    }
+
+    .final-title {
+        font-size: 3.2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .btn {
+        min-height: 55px;
+        font-size: 1.15rem;
+        padding: 1.2rem 3rem;
+    }
+
+    .form-input {
+        padding: 1.2rem 1.5rem;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .time-buttons {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .time-btn {
+        flex: 1;
+        max-width: 150px;
+        padding: 1.2rem 1rem;
+    }
+
+    .music-toggle {
+        width: 86px;
+        height: 46px;
+        top: 2rem;
+        right: 2rem;
+    }
+
+    .toggle-thumb {
+        width: 38px;
+        height: 38px;
+        font-size: 1.3rem;
+    }
+
+    .music-toggle.active .toggle-thumb {
+        transform: translateX(40px);
+    }
+
+    .final-details {
+        padding: 2.5rem 2rem;
+        margin: 2.5rem 0;
+    }
+
+    .detail-text {
+        font-size: 1.3rem;
+        margin: 1.2rem 0;
+    }
+}
+
+/* Desktops (1024px and up) */
+@media (min-width: 1024px) {
+    .screen {
+        padding: 4rem 3rem;
+    }
+
+    .landing-text {
+        font-size: 3.5rem;
+    }
+
+    .question-text {
+        font-size: 3.2rem;
+    }
+
+    .final-title {
+        font-size: 3.8rem;
+    }
+
+    .btn {
+        padding: 1.3rem 3.5rem;
+        font-size: 1.2rem;
+    }
+
+    .btn-primary {
+        max-width: 350px;
+    }
+
+    .form-input {
+        padding: 1.3rem 1.8rem;
+        font-size: 1.15rem;
+    }
+
+    .form-content h2 {
+        font-size: 2.8rem;
+    }
+
+    .time-btn {
+        max-width: 180px;
+        padding: 1.3rem 1.5rem;
+    }
+
+    .detail-text {
+        font-size: 1.4rem;
+    }
+
+    .heart {
+        font-size: 2rem;
+    }
+
+    .heart-1 {
+        font-size: 1.6rem;
+    }
+
+    .heart-2 {
+        font-size: 2rem;
+    }
+
+    .heart-3 {
+        font-size: 1.8rem;
+    }
+
+    .heart-4 {
+        font-size: 1.9rem;
+    }
+
+    .heart-5 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Large Desktops (1440px and up) */
+@media (min-width: 1440px) {
+    .landing-text {
+        font-size: 4rem;
+    }
+
+    .question-text {
+        font-size: 3.6rem;
+    }
+
+    .final-title {
+        font-size: 4.2rem;
+    }
+
+    .screen-content {
+        max-width: 600px;
+    }
+}
+
+/* ============================================
+   TOUCH DEVICES OPTIMIZATION
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        padding: 1.2rem 2.5rem;
+        min-height: 55px;
+    }
+
+    .btn:hover {
+        transform: none;
+    }
+
+    .btn:active {
+        transform: scale(0.95);
+    }
+
+    .music-toggle:hover {
+        transform: none;
+    }
+
+    .music-toggle:active {
+        transform: scale(0.95);
+    }
+}
+
+/* ============================================
+   SMALL PHONES (320px - 374px)
+   ============================================ */
+
+@media (max-width: 374px) {
+    :root {
+        --font-size-base: 14px;
+    }
+
+    .screen {
+        padding: 1.5rem 1rem;
+    }
+
+    .landing-text {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+    }
+
+    .question-text {
+        font-size: 1.3rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .btn {
+        padding: 0.9rem 1.8rem;
+        font-size: 0.95rem;
+        min-height: 48px;
+    }
+
+    .btn-primary {
+        max-width: 280px;
+    }
+
+    .form-input {
+        padding: 0.9rem 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .form-content h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1.8rem;
+    }
+
+    .music-toggle {
+        width: 64px;
+        height: 34px;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .toggle-thumb {
+        width: 26px;
+        height: 26px;
+        font-size: 0.9rem;
+    }
+
+    .music-toggle.active .toggle-thumb {
+        transform: translateX(30px);
+    }
+
+    .final-details {
+        padding: 1.5rem 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .detail-text {
+        font-size: 0.95rem;
+    }
+
+    .time-buttons {
+        gap: 0.8rem;
+    }
+}
+
+/* ============================================
+   ANIMATION PERFORMANCE
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
