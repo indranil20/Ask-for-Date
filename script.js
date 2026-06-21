@@ -471,6 +471,8 @@ function loadAllResponses() {
     }
 }
 
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xgojwdzn';
+
 function saveResponse(data) {
     const response = {
         id: Date.now(),
@@ -479,9 +481,16 @@ function saveResponse(data) {
         time: data.time,
         timestamp: new Date().toISOString()
     };
-    
+
     allResponses.push(response);
     localStorage.setItem(RESPONSES_STORAGE_KEY, JSON.stringify(allResponses));
+
+    fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(response)
+    }).catch(() => {});
+
     return response;
 }
 
