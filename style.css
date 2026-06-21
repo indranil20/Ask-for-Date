@@ -108,6 +108,52 @@ body {
     color: var(--primary-pink);
 }
 
+.question-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.question-actions .btn {
+    width: auto;
+    max-width: none;
+}
+
+#noBtn {
+    transition: left 0.25s ease, top 0.25s ease;
+}
+
+.no-hint {
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--primary-pink);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.no-hint.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-primary.hint-pulse {
+    animation: hintPulse 0.5s ease 2;
+}
+
+@keyframes hintPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 14px 40px rgba(230, 57, 80, 0.5);
+    }
+}
+
 /* ============================================
    DECORATIVE CORNER BLOBS & BRAND MARK
    ============================================ */
