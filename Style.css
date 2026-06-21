@@ -1,0 +1,781 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-pink: #ff6b9d;
+    --light-pink: #ffc0d9;
+    --lighter-pink: #ffe5f0;
+    --white: #ffffff;
+    --dark-gray: #4a4a4a;
+    --transition-speed: 0.4s;
+    --font-size-base: 16px;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #ffe5f0 0%, #fff5f9 100%);
+    min-height: 100vh;
+    color: var(--dark-gray);
+}
+
+/* ============================================
+   SCREENS & TRANSITIONS
+   ============================================ */
+
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed) ease, 
+                visibility var(--transition-speed) ease;
+    z-index: 1;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.screen-content {
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* ============================================
+   LANDING SCREEN
+   ============================================ */
+
+.landing-screen {
+    background: linear-gradient(135deg, #ffe5f0 0%, #ffc0d9 50%, #ffb3cc 100%);
+}
+
+.landing-text {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    margin-bottom: 2.5rem;
+    line-height: 1.3;
+    animation: slideInDown 0.8s ease-out;
+}
+
+/* ============================================
+   QUESTION SCREEN
+   ============================================ */
+
+.question-screen {
+    background: linear-gradient(135deg, #fff5f9 0%, #ffe5f0 100%);
+}
+
+.question-text {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 400;
+    margin-bottom: 3rem;
+    line-height: 1.3;
+    animation: slideInUp 0.8s ease-out;
+}
+
+/* ============================================
+   FLOATING HEARTS ANIMATION
+   ============================================ */
+
+.floating-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-hearts-small {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    animation: float 6s infinite ease-in-out;
+}
+
+.heart-1 {
+    left: 10%;
+    bottom: -5%;
+    animation-delay: 0s;
+    font-size: 1.2rem;
+}
+
+.heart-2 {
+    left: 20%;
+    bottom: -10%;
+    animation-delay: 1s;
+    font-size: 1.5rem;
+}
+
+.heart-3 {
+    left: 50%;
+    bottom: -8%;
+    animation-delay: 2s;
+    font-size: 1.3rem;
+}
+
+.heart-4 {
+    left: 75%;
+    bottom: -12%;
+    animation-delay: 1.5s;
+    font-size: 1.4rem;
+}
+
+.heart-5 {
+    left: 85%;
+    bottom: -6%;
+    animation-delay: 2.5s;
+    font-size: 1.2rem;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-150vh) translateX(100px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   EMOJI ANIMATIONS
+   ============================================ */
+
+.emoji-pulse {
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.emoji-bounce {
+    display: inline-block;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* ============================================
+   HEART LOADER
+   ============================================ */
+
+.heart-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 192, 217, 0.95);
+    z-index: 999;
+    backdrop-filter: blur(10px);
+}
+
+.heart-loader.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.beating-heart {
+    font-size: 5rem;
+    animation: heartbeat 0.6s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.15);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   FORM SCREENS
+   ============================================ */
+
+.form-content {
+    padding: 2rem 1.5rem;
+}
+
+.form-content h2 {
+    font-size: clamp(1.3rem, 4vw, 2rem);
+    margin-bottom: 2.5rem;
+    font-weight: 500;
+    animation: slideInDown 0.6s ease-out;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+    border: 2px solid var(--light-pink);
+    border-radius: 15px;
+    background: var(--white);
+    color: var(--dark-gray);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    font-family: inherit;
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.1);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-pink);
+    box-shadow: 0 6px 25px rgba(255, 107, 157, 0.2);
+    transform: translateY(-2px);
+}
+
+.form-input::placeholder {
+    color: #ccc;
+}
+
+/* Calendar Input Styling */
+.form-input[type="date"] {
+    cursor: pointer;
+}
+
+.form-input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.7) sepia(1) saturate(5) hue-rotate(340deg);
+}
+
+/* ============================================
+   TIME BUTTONS
+   ============================================ */
+
+.time-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.time-btn {
+    padding: 1.2rem 2rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.time-btn.active {
+    background: var(--primary-pink);
+    color: var(--white);
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn {
+    padding: 1rem 2.5rem;
+    font-size: clamp(0.95rem, 3vw, 1.1rem);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    box-shadow: 0 6px 20px rgba(255, 107, 157, 0.3);
+    min-height: 50px;
+    touch-action: manipulation;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--primary-pink);
+    color: var(--white);
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+}
+
+.btn-primary:hover {
+    background: #ff5a8a;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--primary-pink);
+    border: 2px solid var(--light-pink);
+    width: 100%;
+}
+
+.btn-secondary:hover {
+    background: var(--lighter-pink);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.2);
+}
+
+/* ============================================
+   FINAL SCREEN
+   ============================================ */
+
+.final-screen {
+    background: linear-gradient(135deg, #ffe5f0 0%, #fff5f9 100%);
+}
+
+.final-title {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    animation: slideInDown 0.8s ease-out;
+}
+
+.final-details {
+    background: var(--white);
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+    margin: 2rem 0;
+    box-shadow: 0 8px 30px rgba(255, 107, 157, 0.15);
+    animation: slideInUp 0.8s ease-out;
+}
+
+.detail-text {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin: 1rem 0;
+    color: var(--primary-pink);
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.final-message {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    margin: 1.5rem 0 2rem;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+}
+
+/* ============================================
+   MUSIC TOGGLE BUTTON
+   ============================================ */
+
+.music-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--white);
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.25);
+    z-index: 100;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+}
+
+.music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 107, 157, 0.35);
+}
+
+.music-toggle:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+   SLIDE ANIMATIONS
+   ============================================ */
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   CALENDAR SCREEN
+   ============================================ */
+
+.calendar-screen {
+    background: linear-gradient(135deg, #fff5f9 0%, #ffe5f0 100%);
+}
+
+/* ============================================
+   LOCATION SCREEN
+   ============================================ */
+
+.location-screen {
+    background: linear-gradient(135deg, #ffe5f0 0%, #fff5f9 100%);
+}
+
+/* ============================================
+   TIME SCREEN
+   ============================================ */
+
+.time-screen {
+    background: linear-gradient(135deg, #fff5f9 0%, #ffc0d9 100%);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablets (768px and up) */
+@media (min-width: 768px) {
+    :root {
+        --font-size-base: 18px;
+    }
+
+    .screen {
+        padding: 3rem 2rem;
+    }
+
+    .landing-text {
+        font-size: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .question-text {
+        font-size: 2.8rem;
+        margin-bottom: 4rem;
+    }
+
+    .final-title {
+        font-size: 3.2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .btn {
+        min-height: 55px;
+        font-size: 1.15rem;
+        padding: 1.2rem 3rem;
+    }
+
+    .form-input {
+        padding: 1.2rem 1.5rem;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .time-buttons {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .time-btn {
+        flex: 1;
+        max-width: 150px;
+    }
+
+    .music-toggle {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+        top: 2rem;
+        right: 2rem;
+    }
+
+    .final-details {
+        padding: 2.5rem 2rem;
+        margin: 2.5rem 0;
+    }
+
+    .detail-text {
+        font-size: 1.3rem;
+        margin: 1.2rem 0;
+    }
+}
+
+/* Desktops (1024px and up) */
+@media (min-width: 1024px) {
+    .screen {
+        padding: 4rem 3rem;
+    }
+
+    .landing-text {
+        font-size: 3.5rem;
+    }
+
+    .question-text {
+        font-size: 3.2rem;
+    }
+
+    .final-title {
+        font-size: 3.8rem;
+    }
+
+    .btn {
+        padding: 1.3rem 3.5rem;
+        font-size: 1.2rem;
+    }
+
+    .btn-primary {
+        max-width: 350px;
+    }
+
+    .form-input {
+        padding: 1.3rem 1.8rem;
+        font-size: 1.15rem;
+    }
+
+    .form-content h2 {
+        font-size: 2.8rem;
+    }
+
+    .time-btn {
+        max-width: 180px;
+    }
+
+    .detail-text {
+        font-size: 1.4rem;
+    }
+
+    .heart {
+        font-size: 2rem;
+    }
+
+    .heart-1 {
+        font-size: 1.6rem;
+    }
+
+    .heart-2 {
+        font-size: 2rem;
+    }
+
+    .heart-3 {
+        font-size: 1.8rem;
+    }
+
+    .heart-4 {
+        font-size: 1.9rem;
+    }
+
+    .heart-5 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Large Desktops (1440px and up) */
+@media (min-width: 1440px) {
+    .landing-text {
+        font-size: 4rem;
+    }
+
+    .question-text {
+        font-size: 3.6rem;
+    }
+
+    .final-title {
+        font-size: 4.2rem;
+    }
+
+    .screen-content {
+        max-width: 600px;
+    }
+}
+
+/* ============================================
+   TOUCH DEVICES OPTIMIZATION
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        padding: 1.2rem 2.5rem;
+        min-height: 55px;
+    }
+
+    .btn:hover {
+        transform: none;
+    }
+
+    .btn:active {
+        transform: scale(0.95);
+    }
+
+    .music-toggle:hover {
+        transform: none;
+    }
+
+    .music-toggle:active {
+        transform: scale(0.95);
+    }
+}
+
+/* ============================================
+   SMALL PHONES (320px - 374px)
+   ============================================ */
+
+@media (max-width: 374px) {
+    :root {
+        --font-size-base: 14px;
+    }
+
+    .screen {
+        padding: 1.5rem 1rem;
+    }
+
+    .landing-text {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+    }
+
+    .question-text {
+        font-size: 1.3rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .btn {
+        padding: 0.9rem 1.8rem;
+        font-size: 0.95rem;
+        min-height: 48px;
+    }
+
+    .btn-primary {
+        max-width: 280px;
+    }
+
+    .form-input {
+        padding: 0.9rem 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .form-content h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1.8rem;
+    }
+
+    .music-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .final-details {
+        padding: 1.5rem 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .detail-text {
+        font-size: 0.95rem;
+    }
+
+    .time-buttons {
+        gap: 0.8rem;
+    }
+}
+
+/* ============================================
+   ANIMATION PERFORMANCE
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
