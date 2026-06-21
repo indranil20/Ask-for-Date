@@ -69,6 +69,10 @@ function showHeartLoader() {
 const startBtn = document.getElementById('startBtn');
 
 startBtn.addEventListener('click', () => {
+    const bgMusic = document.getElementById('bgMusic');
+    if (bgMusic) {
+        bgMusic.play().catch(() => {});
+    }
     showScreen('questionScreen');
 });
 
